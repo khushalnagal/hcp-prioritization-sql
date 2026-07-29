@@ -32,9 +32,9 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 | Tier | HCPs | Share |
 |---|---|---|
 | Maintenance | 290,243 | 51.0% |
-| Growth | 148,301 | 26.1% |
+| Growth | 148,301 | 26.01% |
 | **High Priority** | 73,891 | **13.0%** |
-| **Dormant** | 56,684 | **10.0%** |
+| **Dormant** | 56,684 | **9.99%** |
 
 ## Dashboard
 
