@@ -1,5 +1,5 @@
 -- 05_tiering.sql
--- Adds Frequency/Volume quartiles, then assigns a tier using Recency + Volume quartile
+-- Adds Frequency/Volume quartiles, then assigns a tier using Recency + Frequency + Volume
 
 DROP TABLE IF EXISTS hcp_tiered;
 
@@ -14,8 +14,8 @@ SELECT
     claims_quartile,
     spend_quartile,
     CASE
-        WHEN last_active_year = 2022 AND spend_quartile = 4 THEN 'High Priority'
-        WHEN last_active_year IN (2021, 2022) AND spend_quartile >= 3 THEN 'Growth'
+        WHEN last_active_year = 2022 AND spend_quartile = 4 AND claims_quartile >= 3 THEN 'High Priority'
+        WHEN last_active_year IN (2021, 2022) AND spend_quartile >= 3 AND claims_quartile >= 2 THEN 'Growth'
         WHEN last_active_year IN (2020, 2021, 2022) THEN 'Maintenance'
         ELSE 'Dormant'
     END AS tier
