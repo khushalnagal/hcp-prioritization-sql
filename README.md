@@ -1,10 +1,10 @@
-# HCP Sales Prioritization
+# DocPriority: Data-Driven Sales Targeting
 
-**SQL + Power BI** project to identify which **healthcare providers (HCPs)** a pharma sales team should prioritize, using **Medicare Part D** style prescriber data.
+**SQL + Power BI** project to identify which **Doctor** a pharma sales team should prioritize, using **Medicare Part D** style prescriber data.
 
 ## Problem
 
-A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV framework** (Recency, Frequency, Volume) and sorts them into 4 tiers: **High Priority, Growth, Maintenance, Dormant.**
+A sales rep can't visit every prescriber. This project ranks Doctors using an **RFV framework** (Recency, Frequency, Volume) and sorts them into 4 tiers: **High Priority, Growth, Maintenance, Dormant.**
 
 ## Stack
 
@@ -17,7 +17,7 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 | `01_create_tables.sql` | Creates database and raw staging table |
 | `02_load_data.sql` | Loads CSV into MySQL, profiles data quality |
 | `03_data_clean.sql` | Cleans and deduplicates (**5 rules**) |
-| `04_rfv_analysis.sql` | Computes **Recency, Frequency, Volume** per HCP |
+| `04_rfv_analysis.sql` | Computes **Recency, Frequency, Volume** per Doctor |
 | `05_tiering.sql` | **Quartile ranking** and tier assignment |
 
 ## Cleaning Results
@@ -29,7 +29,7 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 
 ## Tier Breakdown
 
-| Tier | HCPs | Share |
+| Tier | Doctors | Share |
 |---|---|---|
 | Maintenance | 290,243 | 50.9% |
 | Growth | 148,301 | 26.1% |
@@ -38,21 +38,21 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 
 ## Dashboard
 
-`powerbi/HCP.pbix` connects **directly** to the final `hcp_tiered` SQL table, no manual export step.
+`powerbi/HCP.pbix` connects **directly** to the final `Doctor_tiered` SQL table, no manual export step.
 
-- **KPI cards:** Total HCPs, Target Coverage, High Priority HCPs, Dormant HCPs
+- **KPI cards:** Total Doctors, Target Coverage, High Priority Doctors, Dormant Doctors
 - **Tier distribution** and spend by tier
-- **Top specialties** and **top states** by HCP count
-- **Ranked table** of top HCPs by spend
+- **Top specialties** and **top states** by Doctor count
+- **Ranked table** of top Doctors by spend
 - **Slicers:** specialty, state, tier
 
 ## Key Insights
 
-- **High Priority tier is only 13.0% of HCPs but drives the largest share of prescribing spend** - opportunity is concentrated, not evenly spread
-- **10% of HCPs are Dormant** - a clear, actionable re-engagement list for the sales team
+- **High Priority tier is only 13.0% of Doctors but drives the largest share of prescribing spend** - opportunity is concentrated, not evenly spread
+- **10% of Doctors are Dormant** - a clear, actionable re-engagement list for the sales team
 - **High spend does not always mean High Priority** - Recency pulls some big spenders into Growth or Maintenance, proving why a single metric isn't enough
 - Top specialties (**Cardiology, Internal Medicine, Family Practice, Endocrinology**) align directly with the diabetes/cardiovascular drug focus
-- HCP volume is spread across **many states**, supporting territory-level filtering for a national sales team
+- Doctor volume is spread across **many states**, supporting territory-level filtering for a national sales team
 
 ## Notes
 
