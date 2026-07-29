@@ -1,22 +1,23 @@
 -- 05_tiering.sql
 -- Adds Frequency/Volume quartiles, then assigns a tier using Recency + Frequency + Volume
+-- Recency is computed relative to the latest year present in the data, not hardcoded.
 
 DROP TABLE IF EXISTS hcp_tiered;
 
 CREATE TABLE hcp_tiered AS
 SELECT
-    npi,
-    specialty,
-    state,
-    last_active_year,
-    total_claims,
-    total_spend,
-    claims_quartile,
-    spend_quartile,
+    r.npi,
+    r.specialty,
+    r.state,
+    r.last_active_year,
+    r.total_claims,
+    r.total_spend,
+    r.claims_quartile,
+    r.spend_quartile,
     CASE
-        WHEN last_active_year = 2022 AND spend_quartile = 4 AND claims_quartile >= 3 THEN 'High Priority'
-        WHEN last_active_year IN (2021, 2022) AND spend_quartile >= 3 AND claims_quartile >= 2 THEN 'Growth'
-        WHEN last_active_year IN (2020, 2021, 2022) THEN 'Maintenance'
+        WHEN r.last_active_year = y.max_year AND r.spend_quartile = 4 AND r.claims_quartile >= 3 THEN 'High Priority'
+        WHEN r.last_active_year >= y.max_year - 1 AND r.spend_quartile >= 3 AND r.claims_quartile >= 2 THEN 'Growth'
+        WHEN r.last_active_year >= y.max_year - 2 THEN 'Maintenance'
         ELSE 'Dormant'
     END AS tier
 FROM (
@@ -30,7 +31,8 @@ FROM (
         NTILE(4) OVER (ORDER BY total_claims) AS claims_quartile,
         NTILE(4) OVER (ORDER BY total_spend)  AS spend_quartile
     FROM hcp_rfv
-) ranked;
+) r
+CROSS JOIN (SELECT MAX(last_active_year) AS max_year FROM hcp_rfv) y;
 
 SELECT tier, COUNT(*) AS hcp_count
 FROM hcp_tiered
