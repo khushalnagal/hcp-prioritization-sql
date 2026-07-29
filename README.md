@@ -31,9 +31,9 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 
 | Tier | HCPs | Share |
 |---|---|---|
-| Maintenance | 286,742 | 50.4% |
-| Growth | 149,330 | 26.2% |
-| **High Priority** | 76,363 | **13.4%** |
+| Maintenance | 290,243 | 51.0% |
+| Growth | 148,301 | 26.1% |
+| **High Priority** | 73,891 | **13.0%** |
 | **Dormant** | 56,684 | **10.0%** |
 
 ## Dashboard
@@ -48,7 +48,7 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 
 ## Key Insights
 
-- **High Priority tier is only 13.4% of HCPs but drives the largest share of prescribing spend** - opportunity is concentrated, not evenly spread
+- **High Priority tier is only 13.0% of HCPs but drives the largest share of prescribing spend** - opportunity is concentrated, not evenly spread
 - **10% of HCPs are Dormant** - a clear, actionable re-engagement list for the sales team
 - **High spend does not always mean High Priority** - Recency pulls some big spenders into Growth or Maintenance, proving why a single metric isn't enough
 - Top specialties (**Cardiology, Internal Medicine, Family Practice, Endocrinology**) align directly with the diabetes/cardiovascular drug focus
