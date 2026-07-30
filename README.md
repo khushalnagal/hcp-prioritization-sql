@@ -1,4 +1,4 @@
-# DocPriority: Data-Driven Sales Targeting
+# HCP Prioritization: SQL-Based Sales Targeting
 
 **SQL + Power BI** project to identify which **Doctor** a pharma sales team should prioritize, using **Medicare Part D** style prescriber data.
 
