@@ -19,20 +19,27 @@ SELECT
         WHEN r.last_active_year >= y.max_year - 1 AND r.spend_quartile >= 3 AND r.claims_quartile >= 2 THEN 'Growth'
         WHEN r.last_active_year >= y.max_year - 2 THEN 'Maintenance'
         ELSE 'Dormant'
-    END AS tier
+    END AS tier,
+    d.top_drug_name
 FROM (
     SELECT
-        npi,
-        specialty,
-        state,
-        last_active_year,
-        total_claims,
-        total_spend,
+        npi, specialty, state, last_active_year, total_claims, total_spend,
         NTILE(4) OVER (ORDER BY total_claims) AS claims_quartile,
         NTILE(4) OVER (ORDER BY total_spend)  AS spend_quartile
     FROM hcp_rfv
 ) r
-CROSS JOIN (SELECT MAX(last_active_year) AS max_year FROM hcp_rfv) y;
+CROSS JOIN (SELECT MAX(last_active_year) AS max_year FROM hcp_rfv) y
+JOIN (
+    -- one row per doctor: their single top drug by total spend
+    SELECT npi, drug_name AS top_drug_name
+    FROM (
+        SELECT npi, drug_name,
+               ROW_NUMBER() OVER (PARTITION BY npi ORDER BY SUM(total_drug_spend) DESC) AS rn
+        FROM hcp_data_clean_final
+        GROUP BY npi, drug_name
+    ) x
+    WHERE rn = 1
+) d ON r.npi = d.npi;
 
 SELECT tier, COUNT(*) AS hcp_count
 FROM hcp_tiered
