@@ -18,7 +18,7 @@ A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV
 | `02_load_data.sql` | Loads CSV into MySQL, profiles data quality |
 | `03_data_clean.sql` | Cleans and deduplicates (**5 rules**) |
 | `04_rfv_analysis.sql` | Computes **Recency, Frequency, Volume** per HCP |
-| `05_tiering.sql` | **Quartile ranking** and tier assignment, using Recency + Frequency + Volume |
+| `05_tiering.sql` | **Quartile ranking** and tier assignment, using Recency + Frequency + Volume, plus each HCP's top drug by spend |
 
 ## Cleaning Results
 
@@ -45,7 +45,7 @@ Tiering uses **Recency, Frequency (claim count quartile), and Volume (spend quar
 - **KPI cards:** Total HCPs, Target Coverage, High Priority HCPs, Dormant HCPs
 - **Tier distribution** and spend by tier
 - **Top specialties** and **top states** by HCP count
-- **Ranked table** of top HCPs by spend
+- **Ranked table** of top HCPs by spend, including each HCP's top drug by spend
 - **Slicers:** specialty, state, tier
 
 ## Key Insights
