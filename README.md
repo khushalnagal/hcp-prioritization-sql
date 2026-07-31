@@ -1,6 +1,6 @@
 # HCP Prioritization: SQL-Based Sales Targeting
 
-**SQL + Power BI** project to identify which **healthcare providers (HCPs)** a pharma sales team should prioritize, using **Medicare Part D** style prescriber data.
+**SQL + Power BI** project to identify which **healthcare providers (HCPs)** a pharma sales team should prioritize, using Medicare style prescriber data.
 
 ## Problem
 A sales rep can't visit every prescriber. This project ranks HCPs using an **RFV framework** (Recency, Frequency, Volume) and sorts them into 4 tiers: **High Priority, Growth, Maintenance, Dormant.**
