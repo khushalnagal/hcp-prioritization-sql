@@ -20,11 +20,11 @@ SELECT
     CAST(bene_count AS UNSIGNED)            AS unique_patient_count
 FROM hcp_data_raw
 WHERE
-    (npi IS NOT NULL AND TRIM(npi) != '')                                                  -- drop null/blank NPI
-    AND provider_country = 'US'                                                            -- CMS data only reflects the US system
+    LENGTH(TRIM(npi)) > 0                                                                  
+    AND provider_country = 'US'                                                            
     AND (ge65_suppress_flag IS NULL OR TRIM(TRAILING '\r' FROM ge65_suppress_flag) != '#') -- '#' = suppressed low count, not zero (strip trailing \r from Windows line endings)
     AND total_claim_count != '0'                                                           -- zero-activity rows
-    AND total_drug_cost >= 0;                                                              -- negative cost = bad data entry
+    AND total_drug_cost >= 0;                                                              
 
 SELECT COUNT(*) AS clean_row_count FROM hcp_data_clean;                                    -- expect ~857,756
 
@@ -63,18 +63,3 @@ FROM hcp_data_clean
 GROUP BY npi, specialty, state, drug_name, drug_type, claim_year;
 
 SELECT COUNT(*) AS final_clean_row_count FROM hcp_data_clean_final;                        -- expect close to 856,931
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
