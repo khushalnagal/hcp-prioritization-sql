@@ -26,7 +26,6 @@ top_drug AS (
 )
 SELECT
     c.npi,
-    UPPER(COALESCE(NULLIF(l.specialty, ''), 'Unspecified')) AS specialty,
     l.state,
     MAX(c.claim_year)       AS last_active_year,
     SUM(c.total_rx_claims)  AS total_claims,
